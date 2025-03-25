@@ -1,0 +1,94 @@
+package linkdlist;
+
+public class LinkedList {
+    Node head;
+    class Node{
+        int data;
+        Node next;
+    }
+    LinkedList(){    //Constructor is called when object is created right
+        head = null; //so first when there is no node head must be null ;
+    }
+    public void InsertAtBeginning(int val){
+        Node newnode = new Node();
+        newnode.data = val;
+        //if list is empty , i.e. FIRST NODE
+        if(head == null){
+            head = newnode;
+            //When already there's a node
+        } else {
+            newnode.next = head; //the new node becomes the head right i.e. new node layum head value the irukum .
+            head = newnode;     // insert at beginning so that's y
+        }
+    }
+    public void displayAll(){
+        Node temp = head;
+        while (temp!=null){
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
+    public void InsertAtPos(int ind,int val){
+        Node Newnode = new Node();//Newnode created
+        if(ind == 0){
+            InsertAtBeginning(val);
+            return;
+        }
+        Node temp = head;
+        for(int i = 1;i < ind; i++){
+            temp = temp.next;
+        }
+        Newnode.next = temp.next;
+        Newnode.data = val;
+        temp.next = Newnode;
+    }
+    public void DeleteAtPos(int pos){
+        if(head == null){
+            throw new IndexOutOfBoundsException("Empyty list bruh!!");
+        }
+        if(pos == 0){       //Delete at beginning
+            head = head.next;
+            return;
+        }
+        Node temp = head;
+        Node Prev = null;
+        for(int i = 1;i<=pos;i++){
+            Prev = temp;
+            temp = temp.next;
+        }
+        Prev.next = temp.next;
+    }
+    public int Get(int pos){  //gets the value by index
+        Node temp = head;
+        for(int i = 1;i <= pos; i++){
+            temp = temp.next;
+        }
+        return temp.data;
+    }
+    public void Update(int pos, int val){
+        Node temp = head;
+        for(int i = 1; i <= pos; i++){
+            temp = temp.next;
+        }
+        temp.data = val;
+    }
+    /* Creating a reverse mthd
+    * def prev, cur, next
+    * chg current.next to prev
+    * chg prev to curr
+    * chg curr to next
+    * */
+    public void Reverse(){
+        Node prev = null;
+        Node current = head;
+        Node next ; //when the list is empty this might be a prob;;;
+        while (current!=null){
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+
+    }
+}
